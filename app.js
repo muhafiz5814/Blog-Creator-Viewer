@@ -1,6 +1,9 @@
 import express from "express"
 import bodyParser from "body-parser"
 import { config } from "dotenv"
+import pkg from "lodash"
+
+const _ = pkg
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -45,10 +48,23 @@ app.post("/submitPost", (req, res) => {
     res.redirect("/")
 })
 
-app.get("/post", (req, res) => {
-    res.render("post.ejs", {
-        post: posts[0]
+app.get("/posts/:postTitle", (req, res) => {
+    
+    console.log(req.params.postTitle)
+    const pT = _.lowerCase(req.params.postTitle)
+    console.log(pT)
+    let found = false
+    posts.forEach(post => {
+        const t = _.lowerCase(post.title)
+        console.log(t)
+        if(pT === t){
+            res.render("post.ejs", {
+                post: post
+            })
+            found = true
+        }
     })
+    if(!found)  res.render("post.ejs")
 })
 
 
