@@ -1,0 +1,21 @@
+<%- include("header.ejs") %>
+
+
+<% if (locals.title && locals.body) { %>
+
+    <div class="container">
+        <div class="row">
+            <h2> <%= title %> </h2>
+        </div>
+        <div class="row">
+            <p> <%= body %> </p>
+        </div>
+    </div>
+ 
+<% } else { %>
+    <p> Post not available.</p>
+<% } %>
+
+
+
+<%- include("footer.ejs") %>
