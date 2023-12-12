@@ -6,11 +6,11 @@
 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est perferendis qui quod, dolores pariatur reiciendis, accusantium tempora inventore quas cupiditate cum voluptates exercitationem, debitis nostrum recusandae! Facilis a illo optio. Lorem ipsum, dolor sit amet consectetur adipisicing elit. In debitis dolores at eius impedit voluptate accusantium fuga porro ipsa ex? Minus sapiente odit neque cumque atque perspiciatis velit, ad in vel deserunt numquam illum obcaecati ipsa magnam eos, voluptatem, alias libero assumenda officiis? Quae quia et hic quo quas, modi ratione tenetur vero, debitis magni beatae in laboriosam maiores officiis impedit, quod assumenda nostrum enim? Mollitia tempora quisquam ullam tempore iure aspernatur quo reiciendis culpa, facere facilis error est repudiandae unde ad ducimus atque quidem omnis architecto. Ipsa, est aliquid earum sed sequi iure fuga odio eveniet quod ab exercitationem facilis id velit ducimus corporis distinctio excepturi harum, perferendis enim optio iste aut. </p>
 </div>
 
-<% if (locals.titlesList) { %>
+<% if (locals.posts) { %>
     <div class="container">
-        <% titlesList.forEach(title => { %>
+        <% posts.forEach(post => { %>
             <div class="row">
-                <h2> <%= title %> </h2>
+                <h2> <%= post.title %> </h2>
             </div>
         <% }) %>
     </div>

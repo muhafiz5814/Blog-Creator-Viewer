@@ -7,14 +7,18 @@ const port = process.env.PORT || 3000
 
 // console.log(process.env.PORT)
 
-const titles = []
-const bodies = []
+const posts = []
+// const titles = []
+// const bodies = []
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static("public"))
 
 app.get("/", (req, res) => {
-    res.render("home.ejs")
+    
+    res.render("home.ejs", {
+        posts: posts
+    })
 })
 
 app.get("/contact", (req, res) => {
@@ -31,13 +35,19 @@ app.get("/compose", (req, res) => {
 
 app.post("/submitPost", (req, res) => {
 
-    titles.push(req.body.title)
-    bodies.push(req.body.text)
-    console.log(titles)
-    console.log(bodies)
-    res.render("home.ejs", {
-        titlesList: titles,
-        bodyList: bodies
+    const post = {
+        title: req.body.title,
+        body: req.body.text
+    }
+    posts.push(post)
+    // titles.push(req.body.title)
+    // bodies.push(req.body.text)
+    res.redirect("/")
+})
+
+app.get("/post", (req, res) => {
+    res.render("post.ejs", {
+        post: posts[0]
     })
 })
 
