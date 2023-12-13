@@ -11,7 +11,6 @@ const port = process.env.PORT || 3000
 // console.log(process.env.PORT)
 
 const posts = []
-let oldTitle = ""
 // const titles = []
 // const bodies = []
 
@@ -66,6 +65,8 @@ app.get("/posts/:postTitle", (req, res) => {
     if(!found)  res.render("post.ejs")
 })
 
+let oldTitle = ""
+
 app.get("/posts/:postTitle/update", (req, res) => {
 
     const pT = _.lowerCase(req.params.postTitle)
@@ -93,6 +94,25 @@ app.post("/updatePost", (req, res) => {
         }
     })
     res.redirect("/")
+})
+
+app.get("/delete", (req, res) => {
+    res.render("delete.ejs", {
+        posts: posts
+    })
+})
+
+app.get("/deletePost/:postTitle", (req, res) => {
+    const oT = _.lowerCase(req.params.postTitle)
+
+    posts.forEach(post => {
+        const t = _.lowerCase(post.title)
+        if(oT === t){
+            const i = posts.indexOf(post)
+            posts.splice(i, 1)
+        }
+    })
+    res.redirect("/delete")
 })
 
 app.listen(port, (req, res) => {
