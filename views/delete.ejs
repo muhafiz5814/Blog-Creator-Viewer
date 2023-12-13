@@ -1,0 +1,23 @@
+<%- include("header.ejs") %>
+
+    <% if (locals.posts) { %>
+        <div class="container">
+            <% posts.forEach(post=> { %>
+                <div class="row border-bottom">
+                    <div class="col-sm-8">
+                        <h2>
+                            <%= post.title %>
+                        </h2>
+                        <p>
+                            <%= post.body.substring(0, 100) + " ... " %><a href="/posts/<%= post.title %>">click here</a>
+                        </p>
+                    </div>
+                    <div class="col-sm-4 text-center p-4">
+                        <a href="/deletePost/<%= post.title %>"><button type="button" class="btn btn-danger btn-sm">Delete</button></a>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } %>
+
+<%- include("footer.ejs") %>
