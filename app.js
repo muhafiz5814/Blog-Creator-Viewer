@@ -11,6 +11,7 @@ const port = process.env.PORT || 3000
 // console.log(process.env.PORT)
 
 const posts = []
+let oldTitle = ""
 // const titles = []
 // const bodies = []
 
@@ -50,13 +51,11 @@ app.post("/submitPost", (req, res) => {
 
 app.get("/posts/:postTitle", (req, res) => {
     
-    console.log(req.params.postTitle)
     const pT = _.lowerCase(req.params.postTitle)
-    console.log(pT)
+
     let found = false
     posts.forEach(post => {
         const t = _.lowerCase(post.title)
-        console.log(t)
         if(pT === t){
             res.render("post.ejs", {
                 post: post
@@ -67,6 +66,34 @@ app.get("/posts/:postTitle", (req, res) => {
     if(!found)  res.render("post.ejs")
 })
 
+app.get("/posts/:postTitle/update", (req, res) => {
+
+    const pT = _.lowerCase(req.params.postTitle)
+    oldTitle = req.params.postTitle
+
+    posts.forEach(post => {
+        const t = _.lowerCase(post.title)
+        if(pT === t){
+            res.render("update.ejs", {
+                post: post
+            })
+        }
+    })
+})
+
+app.post("/updatePost", (req, res) => {
+    const oT = _.lowerCase(oldTitle)
+
+    posts.forEach(post => {
+        const t = _.lowerCase(post.title)
+        if(oT === t){
+            post.title = req.body.title
+            post.body = req.body.text
+            oldTitle = ""
+        }
+    })
+    res.redirect("/")
+})
 
 app.listen(port, (req, res) => {
     console.log(`Server is running on port ${port}`)
